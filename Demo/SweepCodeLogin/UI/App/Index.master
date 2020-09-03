@@ -1,0 +1,525 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Index.master.cs" Inherits="App_index" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>知聚网--专利转让,专利交易,专利运营，高校专利成果转化交易平台</title>
+    <meta name="keywords" content="专利交易,专利转让,专利运营,专利查询,购买专利,专利出售,专利求购,专利交易网,专利转让网,商标转让网,中国专利转让网" />
+    <meta name="description" content="知聚网是一站式知识产权交易服务,专利转让,专利交易,专利运营，高校专利成果转化交易平台,提供专利出售转让服务,专注专利买卖,专利变更,专利转让手续办理,专利技术推广,专利价值评估,具有优秀专业顾问团队为企业个人提供专利技术交易高端服务。" />
+    <link rel="shortcut icon" href="../img/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="app/css/fonts/fontawesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="app/css/base.css" />
+
+    <script type="text/javascript" src="../js/jquery/jquery-1.12.3.js"></script>
+    <script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/app/app.bootstrap.tabs.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
+    <!--选项卡 -->
+    <script type="text/javascript" src="../js/jquery.extend/jquery.tabs.js"></script>
+    <script type="text/javascript" src="../js/jquery.extend/jquery.lazyload.js"></script>
+    <script type="text/javascript" src="../js/jquery.extend/jquery.soChange.js"></script>
+
+    <%--<script type="text/javascript" src="app/js/common.js?version=<%=CP.Common.sysConst.Sys_Version_Code %>"></script>--%>
+
+    <asp:ContentPlaceHolder ID="quote" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="back-white">
+    <div class="nav-blackbox"></div>
+    <div class="blackbox"></div>
+    <div class="heardertop">
+        <div class="fl marginl20 wellcome"><span>欢迎使用知聚网交易平台！</span></div>
+        <ul class="h-nav fr">
+            <% if (IsLogin())
+                {%>
+            <li class="user">
+                <a href="member-portal"><i class="fa fa-user-circle-o"></i>您好！<%=CP.Entiry.Web.WebUser.UserCode %> </a>
+                <ul class="userlist">
+                    <li><a href="member-portal">会员中心</a></li>
+                    <li class="phonenav01"><a href="member.html">我的订单 <span class="fblod color-red">2</span> 件</a></li>
+                    <li class="phonenav01"><a href="member.html">消息 <span>（3）</span></a></li>
+                    <li><a href="member-info-detail">密码修改</a></li>
+                    <li><a href="javascript:void(0);">使用说明</a></li>
+                    <li><a href="login?dotype=logout">退出登录</a></li>
+                </ul>
+            </li>
+            <li class="phonenav02"><a href="member-order-list">我的订单 <span class="fblod color-red"></span> 件</a></li>
+            <li class="phonenav02"><a href="member-message">消息 <span>（<%=GetNoReadMessageNumber() %>）</span></a></li>
+            <% } %>
+            <% else
+                { %>
+            <li><a href="login">登录</a></li>
+            <li><a href="register">注册</a></li>
+            <% } %>
+            <li class="QR">
+                <a href="javascript:void(0);">关注我们</a>
+                <div class="QRlist">
+                    <img src="../img/QR.jpg" />
+                </div>
+            </li>
+            <li class="product">
+                <a href="javascript:void(0);">产品</a>
+                <ul class="productlist">
+                    <li><a href="javascript:void(0);" target="_blank">年费监控</a></li>
+                    <li><a href="https://www.gaoqito.com" target="_blank">高企智能</a></li>
+                    <li><a href="javascript:void(0);" target="_blank">CPC申报</a></li>
+                    <li><a href="javascript:void(0);" target="_blank">CPC管理软件</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="contentbox">
+        <div class="group search-top">
+            <a class="fl searchlogo margint10" href="index.html">
+                <img src="../img/logo-z.png" />
+            </a>
+            <img class="fl slogan" src="../img/slogan.png" />
+            <div class="topbox fr">
+                <div class="indextab">
+                    <div class="tab" role="tabpanel">
+                        <ul class="nav nav-tabs tab-item" role="tablist" id="tab-item">
+                            <li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab"><span>专利市场</span></a></li>
+                            <li role="presentation"><a href="#Section2" aria-controls="home" role="tab" data-toggle="tab"><span>专利检索</span></a></li>
+                            <li role="presentation"><a role="btn_college" href="#Section3" aria-controls="home" role="tab" data-toggle="tab"><span>高校成果</span></a></li>
+                            <li role="presentation"><a href="#Section4" aria-controls="home" role="tab" data-toggle="tab"><span>新闻资讯</span></a></li>
+                        </ul>
+                        <div class="tab-content tabs">
+                            <%--专利市场--%>
+                            <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+                                <div class="search-box">
+                                    <select name="marketselect">
+                                        <option value="paname">专利名称</option>
+                                        <option value="applicant">申请人/权利人</option>
+                                        <option value="applyno">申请号/专利号</option>
+                                    </select>
+                                    <input type="text" name="marketvalue" value="" />
+                                    <a href="javascript:void(0);" role="search" searchtype="marketsearch">检索</a>
+                                </div>
+                            </div>
+                            <%--专利检索--%>
+                            <div role="tabpanel" class="tab-pane fade" id="Section2">
+                                <div class="search-box">
+                                    <select name="paselect">
+                                        <option value="title">专利名称</option>
+                                        <option value="applicantname">申请人/权利人</option>
+                                        <option value="sqh">申请号/专利号</option>
+                                    </select>
+                                    <input type="text" name="pavalue" />
+                                    <a href="javascript:void(0);" role="search" searchtype="search">检索</a>
+                                </div>
+                            </div>
+                            <%--高校成果--%>
+                            <div role="tabpanel" class="tab-pane fade" id="Section3">
+                                <div class="search-box">
+                                    <select name="colleges">
+                                        <option value="all">全部</option>
+                                        <option value="name">科研院校</option>
+                                    </select>
+                                    <input name="collegesvalue" type="text" />
+                                    <a href="javascript:void(0);" role="search" searchtype="colleges">检索</a>
+                                </div>
+                            </div>
+                            <%--新闻资讯--%>
+                            <div role="tabpanel" class="tab-pane fade" id="Section4">
+                                <div class="search-box">
+                                    <select name="newsselect">
+                                        <option value="company">公司新闻</option>
+                                        <option value="industry">行业新闻</option>
+                                        <option value="policy">科技政策</option>
+                                        <option value="encyclopedia">知产百科</option>
+                                    </select>
+                                    <input type="text" name="newsvalue" />
+                                    <a href="javascript:void(0);" role="search" searchtype="newssearch">检索</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%--所有分类--%>
+    <div class="bannerbox">
+        <div class="contentbox">
+            <div class="group">
+                <div class="navbox">
+                    <div class="navlist-l">
+                        <h3><i class="fa fa-list"></i>所有分类</h3>
+                        <div class="classifylist">
+                            <ul class="category-option">
+                                <li class="cat-item top-cat">
+                                    <div class="sub-cat clearfix">
+                                        <div class="sub-cat-links">
+                                            <ul class="sub-group clearfix">
+                                                <li class="sub-title">
+                                                    <a href="market/marketlist.html"><i class="fa fa-home"></i><span id="SecondA"></span></a>
+                                                </li>
+                                                <li class="sub-content" id="ThirdA"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <i class="icon fa fa-home"></i>
+                                    <a class="txt" href="javascript:void(0);">
+                                        <p class="t-name" id="FirstA"></p>
+                                        <p class="t-describe"><span>医学</span><span>农业</span><span>家具</span></p>
+                                    </a>
+                                </li>
+                                <li class="cat-item">
+                                    <div class="sub-cat clearfix">
+                                        <div class="sub-cat-links">
+                                            <ul class="sub-group clearfix">
+                                                <li class="sub-title">
+                                                    <a href="javascript:void(0);"><i class="fa fa-truck"></i><span id="SecondB"></span></a>
+                                                </li>
+                                                <li class="sub-content scrollbar" id="ThirdB"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <i class="icon fa fa-truck"></i>
+                                    <a class="txt" href="javascript:void(0);">
+                                        <p class="t-name" id="FirstB"></p>
+                                        <p class="t-describe"><span>车辆</span><span>运输</span><span>包装</span></p>
+                                    </a>
+                                </li>
+                                <li class="cat-item">
+                                    <div class="sub-cat clearfix">
+                                        <div class="sub-cat-links">
+                                            <ul class="sub-group clearfix">
+                                                <li class="sub-title">
+                                                    <a href="javascript:void(0);"><i class="fa fa-flask"></i><span id="SecondC"></span></a>
+                                                </li>
+                                                <li class="sub-content scrollbar" id="ThirdC"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <i class="icon fa fa-flask"></i>
+                                    <a class="txt" href="javascript:void(0);">
+                                        <p class="t-name" id="FirstC"></p>
+                                        <p class="t-describe"><span>涂料</span><span>混凝土</span><span>冶金</span></p>
+                                    </a>
+                                </li>
+                                <li class="cat-item">
+                                    <div class="sub-cat clearfix">
+                                        <div class="sub-cat-links">
+                                            <ul class="sub-group clearfix">
+                                                <li class="sub-title">
+                                                    <a href="javascript:void(0);"><i class="fa fa-map"></i><span id="SecondD"></span></a>
+                                                </li>
+                                                <li class="sub-content" id="ThirdD"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <i class="icon fa fa-map"></i>
+                                    <a class="txt" href="javascript:void(0);">
+                                        <p class="t-name" id="FirstD"></p>
+                                        <p class="t-describe"><span>纤维纺纱</span><span>织物</span><span>造纸</span></p>
+                                    </a>
+                                </li>
+                                <li class="cat-item">
+                                    <div class="sub-cat clearfix">
+                                        <div class="sub-cat-links">
+                                            <ul class="sub-group clearfix">
+                                                <li class="sub-title">
+                                                    <a href="javascript:void(0);"><i class="fa fa-building"></i><span id="SecondE"></span></a>
+                                                </li>
+                                                <li class="sub-content" id="ThirdE"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <i class="icon fa fa-building"></i>
+                                    <a class="txt" href="javascript:void(0);">
+                                        <p class="t-name" id="FirstE"></p>
+                                        <p class="t-describe"><span>路桥轨道</span><span>门窗</span><span>供热</span></p>
+                                    </a>
+                                </li>
+                                <li class="cat-item">
+                                    <div class="sub-cat clearfix">
+                                        <div class="sub-cat-links">
+                                            <ul class="sub-group clearfix">
+                                                <li class="sub-title">
+                                                    <a href="javascript:void(0);"><i class="fa fa-wrench"></i><span id="SecondF"></span></a>
+                                                </li>
+                                                <li class="sub-content scrollbar" id="ThirdF"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <i class="icon fa fa-wrench"></i>
+                                    <a class="txt" href="javascript:void(0);">
+                                        <p class="t-name" id="FirstF"></p>
+                                        <p class="t-describe"><span>照明</span><span>工程元件</span><span>供热</span></p>
+                                    </a>
+                                </li>
+                                <li class="cat-item">
+                                    <div class="sub-cat clearfix">
+                                        <div class="sub-cat-links">
+                                            <ul class="sub-group clearfix">
+                                                <li class="sub-title">
+                                                    <a href="javascript:void(0);"><i class="fa fa-th-large"></i><span id="SecondG"></span></a>
+                                                </li>
+                                                <li class="sub-content" id="ThirdG"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <i class="icon fa fa-th-large"></i>
+                                    <a class="txt" href="javascript:void(0);">
+                                        <p class="t-name" id="FirstG"></p>
+                                        <p class="t-describe"><span>计算</span><span>测量</span><span>教育</span></p>
+                                    </a>
+                                </li>
+                                <li class="cat-item">
+                                    <div class="sub-cat clearfix">
+                                        <div class="sub-cat-links">
+                                            <ul class="sub-group clearfix">
+                                                <li class="sub-title">
+                                                    <a href="javascript:void(0);"><i class="fa fa-flash"></i><span id="SecondH"></span></a>
+                                                </li>
+                                                <li class="sub-content" id="ThirdH"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <i class="icon fa fa-flash"></i>
+                                    <a class="txt" href="javascript:void(0);">
+                                        <p class="t-name" id="FirstH"></p>
+                                        <p class="t-describe"><span>通信技术</span><span>电器元件</span></p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a class="phonebtn" href="javascript:void(0);"><i class="fa fa-th"></i></a>
+                    <ul class="navlist-r">
+                        <li id="portal" class="active"><a href="portal">首页</a></li>
+                        <li id="market"><a href="javascript:void(0);">专利市场</a></li>
+                        <li id="req"><a href="req-list">技术需求</a></li>
+                        <li><a href="search-pa">专利检索</a></li>
+                        <li id="colleges"><a href="colleges-list-1">高校成果</a></li>
+                        <li id="agent"><a href="agent-list">中介推荐</a></li>
+                        <li id="companynews"><a href="news-company-list">新闻资讯</a></li>
+                        <li id="policy"><a href="news-policiesregulations-list">科技政策</a></li>
+                        <li id="encyclopedia"><a href="news-knowledgeencyclopedia-list">知产百科</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <asp:ContentPlaceHolder ID="content" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <div class="footerbox">
+        <div class="contentbox">
+            <div class="group">
+                <div class="fl footercon">
+                    <div class="linkbox">
+                        <p>友情链接</p>
+                        <ul class="footernav">
+                            <li><a href="https://www.jsheyee.com" target="_blank">江苏禾易</a></li>
+                            <li><a href="http://www.heyee.com" target="_blank">禾易集团</a></li>
+                        </ul>
+                    </div>
+                    <ul class="footernav">
+                        <li><a href="footer-problem">常见问题</a>|</li>
+                        <li><a href="footer-about">关于我们</a>|</li>
+                        <li><a href="footer-contact">联系我们</a></li>
+                    </ul>
+                </div>
+
+                <div class="fr contact-way">
+                    <div class="telbox fr">
+                        <img class="fl telimg" src="../img/tel.png" />
+                        <div class="fl teltxt">
+                            <p>4000-025-699</p>
+                            <span>周一至周五 8:30-17:30</span>
+                        </div>
+                    </div>
+                    <div class="QRbox fr">
+                        <img src="../img/QR.jpg" />
+                        <p>微信公众号</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copy-w">
+                <p class="fl marginr10">Copyright©<span>EZHIJU.COM</span></p>
+                <p class="fl"><%=CP.Common.sysConst.Portal_IPC_BeiAnHao %></p>
+                <a class="recordtxt fl marginr10" target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021202000690">
+                    <img class="fl" src="../img/icon-record.png" />
+                    <p class="fl"><%=CP.Common.sysConst.Portal_PublicSecurity_BeiAnHao %></p>
+                </a>
+                <p class="fl">技术支持：<a class="color-orange" href="http://www.guoziw.cn" target="_blank">青岛果子科技服务平台</a></p>
+            </div>
+            <div class="footerimg">
+                <a href="https://www.yunaq.com" target="_blank">
+                    <img src="../img/footerimg01.png" /></a>
+                <a href="https://ss.knet.cn" target="_blank">
+                    <img src="../img/footerimg02.png" /></a>
+                <a href="http://www.cecdc.com" target="_blank">
+                    <img src="../img/footerimg03.png" /></a>
+                <a href="javascript:void(0);" target="_blank">
+                    <img src="../img/footerimg04.png" /></a>
+                <a href="javascript:void(0);" target="_blank">
+                    <img src="../img/footerimg05.png" /></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebox">
+        <a class="modify" href="javascript:void(0);"><i class="fa fa-user-circle"></i><span>在线客服</span><img src="../img/serviceimg.png" /></a>
+        <a class="p-page" href="javascript:void(0);"><i class="fa fa-envelope"></i><span>意见投诉</span></a>
+        <a href="#top"><i class="fa fa-chevron-circle-up"></i><span>返回顶部</span></a>
+    </div>
+
+    <div class="floatbtn">
+        <img src="../img/floatimg01.png" />
+    </div>
+
+    <%--底部悬浮框--%>
+    <div class="floatbox">
+        <div class="contentbox pr">
+            <div class="floatcon">
+                <img class="floatimg02" src="../img/floatimg02.png" />
+            </div>
+            <div class="floattxt">
+                <div class="f-input">
+                    <i class="fa fa-volume-control-phone"></i>
+                    <input id="contactmobilephone" maxlength="11" />
+                </div>
+                <div class="f-btn">
+                    <a class="fl btn-red" onclick="window.homepage.contactMe();" href="javascript:void(0);">联系我</a>
+                    <a class="fr btn-yellow modify" href="javascript:void(0);">在线咨询</a><!-- 同在线客服 -->
+                </div>
+            </div>
+            <div class="codebox">
+                <img src="../img/QR.jpg" />
+                <p>关注微信公众号</p>
+            </div>
+            <a class="floatclose" href="javascript:void(0);"><i class="fa fa-close"></i></a>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/jquery.extend/jquery.SuperSlide.2.1.3.js"></script>
+    <script type="text/javascript" src="app/js/base.js"></script>
+
+    <div class="popbox p-small deletebox">
+        <div class="pbox-con">
+            <div class="pbox-title">
+                <h3><i class="fa fa-commenting-o"></i>提示</h3>
+                <div class="pbox-close">×</div>
+            </div>
+            <div class="pbox-txt">
+                <h3 class="smalltxt">感谢您的信任，我们会尽快联系您！</h3>
+            </div>
+        </div>
+    </div>
+
+    <%--在线客服--%>
+    <div class="popbox p-small modifybox">
+        <div class="pbox-con">
+            <div class="pbox-title">
+                <h3><i class="fa fa-commenting-o"></i>提示</h3>
+                <div class="pbox-close">×</div>
+            </div>
+            <div class="pbox-txt">
+                <h3 class="smalltxt" style="line-height: 40px;">如果您有任何疑问，请拨打<br>
+                    <span class="color-red font30"><i class="fa fa-user-circle-o"></i>13801586736</span> </h3>
+            </div>
+        </div>
+    </div>
+
+    <%--意见投诉--%>
+    <div class="popbox p-normal p-pagebox">
+        <div class="pbox-con">
+            <div class="pbox-title">
+                <h3>意见投诉</h3>
+                <div class="pbox-close">×</div>
+            </div>
+            <div class="pbox-txt">
+                <ul class="pagetxt">
+                    <li>
+                        <div class="col-lg-6">
+                            <div class="p-box">
+                                <label class="page-name fl">姓名:</label>
+                                <div class="page-con fl">
+                                    <input name="complaintname" class="inf-control in-w" type="text" maxlength="50" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-box">
+                                <label class="page-name fl">联系方式:</label>
+                                <div class="page-con fl">
+                                    <input name="complaintmobilephone" ismobile="true" desc="联系方式" class="inf-control in-w" type="text" maxlength="11" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-lg-12">
+                            <div class="p-box">
+                                <label class="page-name fl"><span class="color-red fblod">*</span>内容:</label>
+                                <div class="page-con fl">
+                                    <textarea name="complaintcontent" ismust="true" desc="内容" maxlength="500" class="inf-control-t in-w" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="pbox-btn">
+                <a class="fr btn-cancel btn-gray in-w25" href="javascript:void(0);">取消</a>
+                <a class="fr btn-orange in-w60" onclick="window.homepage.submitComplaint();" href="javascript:void(0);">确认</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="popbox p-normal addbox">
+        <div class="pbox-con">
+            <div class="pbox-title">
+                <h3>申请加入</h3>
+                <div class="pbox-close">×</div>
+            </div>
+            <div class="pbox-txt">
+                <ul class="pagetxt">
+                    <li>
+                        <div class="col-lg-6">
+                            <div class="p-box">
+                                <label class="page-name fl"><span class="color-red fblod">*</span>院校名称:</label>
+                                <div class="page-con fl">
+                                    <input class="inf-control in-w" type="text" maxlength="" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="pbox-btn">
+                <a class="fr btn-cancel btn-gray in-w25" href="javascript:void(0);">取消</a>
+                <a class="fr btn-confirm btn-orange in-w60" href="javascript:void(0);">确认</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="popbox p-small hintbox" style="display: none;">
+        <div class="pbox-con">
+            <div class="pbox-title">
+                <h3>提示</h3>
+                <div class="pbox-close">×</div>
+            </div>
+            <div class="pbox-txt">
+                <h3 class="smalltxt">您尚未登录！</h3>
+                <div style="overflow: hidden;">
+                    <a class="jumpbtn btn-red fl" href="login">立即登录！</a>
+                    <a class="jumpbtn btn-gray fr" href="javascript:void(0);">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

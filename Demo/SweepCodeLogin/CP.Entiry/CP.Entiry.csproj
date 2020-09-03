@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{534BB09E-28A4-4098-81B0-640C5A49388C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CP.Entiry</RootNamespace>
+    <AssemblyName>CP.Entiry</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CodeNew\代码\CP.Common\bin\Debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="b_Pay_XianXia.cs" />
+    <Compile Include="b_UserAuthentication.cs" />
+    <Compile Include="Interface.cs" />
+    <Compile Include="sys_City.cs" />
+    <Compile Include="sys_Dictionaries.cs" />
+    <Compile Include="sys_District.cs" />
+    <Compile Include="sys_Groups.cs" />
+    <Compile Include="sys_IntegralsLog.cs" />
+    <Compile Include="sys_MemberIntegrals.cs" />
+    <Compile Include="sys_Menu.cs" />
+    <Compile Include="sys_MenuButton.cs" />
+    <Compile Include="sys_Message.cs" />
+    <Compile Include="sys_Message_Check.cs" />
+    <Compile Include="sys_Message_Submit.cs" />
+    <Compile Include="sys_Permissions.cs" />
+    <Compile Include="sys_Province.cs" />
+    <Compile Include="sys_Roles.cs" />
+    <Compile Include="sys_RunParameter.cs" />
+    <Compile Include="sys_StrategicEmergingIndustriesClass.cs" />
+    <Compile Include="sys_UserGroup.cs" />
+    <Compile Include="sys_UserRole.cs" />
+    <Compile Include="sys_Users.cs" />
+    <Compile Include="DA\Log.cs" />
+    <Compile Include="Log\sys_LogLogin.cs" />
+    <Compile Include="Log\sys_LogOperation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\WebUser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CP.Common\CP.Common.csproj">
+      <Project>{7C7F2E86-577B-4631-B41B-23981753230F}</Project>
+      <Name>CP.Common</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\CP.EntityBase\CP.EntityBase.csproj">
+      <Project>{C64EE635-0010-4FC3-ADB7-6B8408397D12}</Project>
+      <Name>CP.EntityBase</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
